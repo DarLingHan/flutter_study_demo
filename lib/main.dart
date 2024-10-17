@@ -1,125 +1,111 @@
 import 'package:flutter/material.dart';
+import './demo/form_demo.dart';
+import './demo/drawer_demo.dart';
+import './demo/bottom_navigation_bar_demo.dart';
+import './demo/listview_demo.dart';
+import './demo/basic_demo.dart';
+import './demo/material_components.dart';
+import './demo/i18n/i18n_demo.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'demo/i18n/intl/ninghao_demo_localizations.dart';
+import './demo/test/test_demo.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() => runApp(App());
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
+class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo HanLing'),
-    );
+        locale: Locale('en', 'US'),
+        // locale: Locale('zh', 'CN'),
+        // localeResolutionCallback: (locale, supportedLocales) {
+        //   return Locale('en', 'US');
+        // },
+        localizationsDelegates: [
+          NinghaoDemoLocalizationsDelegate(),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        supportedLocales: [
+          Locale('en', 'US'),
+          Locale('zh', 'CN'),
+        ],
+        debugShowCheckedModeBanner: false,
+        // home: Home(),
+        initialRoute: '/testDemo',
+        routes: {
+          '/': (context) => Home(),
+          '/form': (context) => FormDemo(),
+          '/mdc': (context) => MaterialComponents(),
+          '/i18n': (context) => I18nDemo(),
+          '/testDemo': (context) => TestDemo(),
+        },
+        theme: ThemeData(
+          // useMaterial3: true,
+          // primarySwatch: Colors.deepPurple,
+          // primaryColor: Colors.deepOrange,
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          highlightColor: Color.fromARGB(126, 12, 218, 47),
+          splashColor: Colors.white70,
+        ));
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
+class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              '点击次数:',
+    // TODO: implement build
+    return DefaultTabController(
+        length: 3,
+        child: Scaffold(
+          backgroundColor: Colors.grey[100],
+          appBar: AppBar(
+            // leading: IconButton(
+            //   icon: Icon(Icons.menu),
+            //   tooltip: 'Navifation',
+            //   onPressed: () => debugPrint('激活'),
+            // ),
+            title: const Text('你好Han Ling'),
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(Icons.search),
+                tooltip: 'Search',
+                onPressed: () => debugPrint('搜索'),
+              )
+            ],
+            elevation: 30,
+            bottom: const TabBar(
+              unselectedLabelColor: Colors.black38,
+              tabs: <Widget>[
+                Tab(icon: Icon(Icons.local_florist)),
+                Tab(icon: Icon(Icons.change_history)),
+                Tab(icon: Icon(Icons.directions_bike)),
+              ],
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+          ),
+          body: TabBarView(
+            children: <Widget>[
+              ListViewDemo(),
+              // Icon(
+              //   Icons.local_florist,
+              //   size: 128,
+              //   color: Colors.black12,
+              // ),
+              // Icon(
+              //   Icons.change_history,
+              //   size: 128,
+              //   color: Colors.black12,
+              // ),
+              BasicDemo(),
+              Icon(
+                Icons.directions_bike,
+                size: 128,
+                color: Colors.black12,
+              ),
+            ],
+          ),
+          drawer: DrawerDemo(),
+          bottomNavigationBar: BottomNavigationBarDemo(),
+        ));
   }
 }
