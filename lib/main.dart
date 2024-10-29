@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_3/app/appNew.dart';
+import 'package:flutter_application_3/playground/palyground.dart';
 import './demo/form_demo.dart';
 import './demo/drawer_demo.dart';
 import './demo/bottom_navigation_bar_demo.dart';
@@ -32,13 +34,15 @@ class App extends StatelessWidget {
         ],
         debugShowCheckedModeBanner: false,
         // home: Home(),
-        initialRoute: '/testDemo',
+        initialRoute: '/app',
         routes: {
           '/': (context) => Home(),
           '/form': (context) => FormDemo(),
           '/mdc': (context) => MaterialComponents(),
           '/i18n': (context) => I18nDemo(),
           '/testDemo': (context) => TestDemo(),
+          '/playground': (context) => Playground(),
+          '/app': (context) => AppNew(),
         },
         theme: ThemeData(
           // useMaterial3: true,
